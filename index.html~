@@ -1,0 +1,155 @@
+<html>
+	<head>
+<script src='https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.js'></script>
+<link href='https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.css' rel='stylesheet' />
+
+<style>
+#painttoggle {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	z-index: 10;
+}
+</style>
+	</head>
+	<body>
+
+<button id='painttoggle' type="toggle" onclick="togglepaint()">Toggle</button>
+
+<div id='map' style='width: 100%; height: 100%;'></div>
+<script>
+
+const basispaint = {
+        "fill-color": [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          "bebouwd", "#e4e9ed",
+          "gras", "#d2eccf",
+          "water", "#c9e1ef",
+          "wetland", "#f1f4c7",
+          "groenvoorziening", "#d2eccf",
+          "landbouw", "#f9f9f9",
+          "zand", "#f8f7db",
+          "bos", "#b0deaa",
+          "weg", "#f9f9f9",
+          "fietspad", "#f3eae7",
+          "voetpad", "#e4e9ed",
+          "berm", "#ebf0e9",
+          "kunstwerk", "#c9c9c9",
+          "#ff04ff"
+        ],
+        "fill-outline-color": [
+          "match",
+          ["get", "class"],
+          "bebouwd","#e4e9ed",
+          "gras","#d2eccf",
+          "water","#c9e1ef",
+          "wetland","#f1f4c7",
+          "groenvoorziening","#d2eccf",
+          "landbouw","#f9f9f9",
+          "zand","#f8f7db",
+          "bos","#b0deaa",
+          "weg","#f9f9f9",
+          "fietspad","#f3eae7",
+          "voetpad","#e4e9ed",
+          "berm","#ebf0e9",
+          "kunstwerk","#c9c9c9",
+          "#ff04ff"
+        ]
+};
+
+const greypaint = {
+                "fill-color": [
+                    "match",
+                    [
+                        "get",
+                        "class"
+                    ],
+                    "bebouwd",
+                    "#dbdbd9",
+                    "gras",
+                    "#e9e9e9",
+                    "water",
+                    "#c8c8d2",
+                    "wetland",
+                    "#c8c8d2",
+                    "groenvoorziening",
+                    "#e5ede5",
+                    "landbouw",
+                    "#efefef",
+                    "zand",
+                    "#e9e9e9",
+                    "bos",
+                    "#e5ede5",
+                    "weg",
+                    "#f9f9f9",
+                    "fietspad",
+                    "#faf2fa",
+                    "voetpad",
+                    "#efefef",
+                    "berm",
+                    "#e9e9e9",
+                    "kunstwerk",
+                    "#afafaf",
+                    "#ff04ff"
+                ],
+                "fill-outline-color": [
+                    "match",
+                    [
+                        "get",
+                        "class"
+                    ],
+                    "bebouwd",
+                    "#dbdbd9",
+                    "gras",
+                    "#e5ede5",
+                    "water",
+                    "#c8c8d2",
+                    "wetland",
+                    "#c8c8d2",
+                    "groenvoorziening",
+                    "#e9e9e9",
+                    "landbouw",
+                    "#efefef",
+                    "zand",
+                    "#e9e9e9",
+                    "bos",
+                    "#e5ede5",
+                    "weg",
+                    "#f9f9f9",
+                    "fietspad",
+                    "#faf2fa",
+                    "voetpad",
+                    "#efefef",
+                    "berm",
+                    "#e9e9e9",
+                    "kunstwerk",
+                    "#afafaf",
+                    "#ff04ff"
+                ]
+};
+
+let toggled;
+
+let togglepaint = function(){
+	map.setPaintProperty('getmvt', 'fill-color', toggled ? 
+		basispaint['fill-color'] :
+		greypaint['fill-color']);
+	map.setPaintProperty('getmvt', 'fill-outline-color', toggledi ? 
+		basispaint['fill-outline-color'] : 
+		greypaint['fill-outline-color']);
+	toggled=!toggled;
+}
+var map = new maplibregl.Map({
+	container: 'map',
+	style: 'https://fileserv.beta.geodan.nl/mapbox/styles/basiskaart_style_grey.json',
+	center: [5.16227524, 52.29559125], // starting position [lng, lat]
+	zoom: 14 // starting zoom
+});
+</script>
+
+	</body>
+</html>
